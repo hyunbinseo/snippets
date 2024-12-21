@@ -1,0 +1,14 @@
+{
+	"useTabs": true,
+	"singleQuote": true,
+	"quoteProps": "consistent",
+	"trailingComma": "all",
+	"printWidth": 100,
+	"plugins": ["prettier-plugin-jsdoc"],
+	"overrides": [
+		{
+			"files": "*.md",
+			"options": { "useTabs": false, "tabWidth": 2, "printWidth": 120 }
+		}
+	]
+}
