@@ -1,28 +1,26 @@
 /**
  * @param {number} startPage
- * @param {number} endPage
+ * @param {number | undefined} endPage
  */
-export const ordersToCsv = async (startPage, endPage = 999) => {
-	if (
-		!Number.isInteger(startPage) ||
-		!Number.isInteger(endPage) ||
-		startPage <= 0 ||
-		endPage <= 0 ||
-		startPage > endPage
-	) {
+export const ordersToCsv = async (startPage, endPage) => {
+	const startPageIsValid = Number.isInteger(startPage) && startPage > 0;
+	const endPageIsValid =
+		endPage === undefined || (Number.isInteger(endPage) && endPage > 0 && endPage >= startPage);
+
+	if (!startPageIsValid || !endPageIsValid) {
 		console.error('페이지 번호가 잘못되었습니다.');
 		return;
 	}
 
 	const textarea = document.createElement('textarea');
 	textarea.style.display = 'none';
-	textarea.value = '주문일,주문번호,수령인,주문상품,종류(종),수량(권),가격(원)\n';
+	textarea.value = '주문일자,주문번호,수령인,주문상품,종류(종),수량(권),가격(원)\n';
 	document.body.appendChild(textarea);
 
-	let finalPage = endPage;
 	let currentPage = startPage;
+	let processedPage = currentPage;
 
-	while (currentPage <= endPage) {
+	while (!endPage || currentPage <= endPage) {
 		console.log(`처리 중입니다: ${currentPage}페이지`);
 
 		try {
@@ -68,10 +66,10 @@ export const ordersToCsv = async (startPage, endPage = 999) => {
 				textarea.value += row.map((v) => (/[,\n"]/.test(v) ? `"${v}"` : v)).join(',') + '\n';
 			}
 
+			processedPage = currentPage;
 			currentPage += 1;
 		} catch {
 			console.error('내역을 찾지 못해 중단합니다.');
-			finalPage = currentPage;
 			break;
 		}
 	}
@@ -82,7 +80,7 @@ export const ordersToCsv = async (startPage, endPage = 999) => {
 
 	const link = document.createElement('a');
 	link.href = URL.createObjectURL(blob);
-	link.download = `알라딘 주문 내역 (${startPage}-${finalPage}페이지).csv`;
+	link.download = `알라딘 주문 내역 (${startPage}-${processedPage}페이지).csv`;
 	console.log('파일을 다운로드합니다.');
 	link.click();
 	URL.revokeObjectURL(link.href);
