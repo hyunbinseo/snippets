@@ -2,6 +2,12 @@
 
 웹 브라우저 / 개발자 도구 / 콘솔에 붙여 넣어 실행합니다.
 
+> [!WARNING]  
+> 이해할 수 없거나 직접 검토하지 않은 코드를 DevTools 콘솔에 붙여넣지 마세요. 공격자가 ID를 도용하거나 컴퓨터를 제어할 수 있습니다. — Microsoft Edge
+
+> [!WARNING]
+> Don’t paste code into the DevTools Console that you don’t understand or haven’t reviewed yourself. This could allow attackers to steal your identity or take control of your computer. — Google Chrome
+
 ## 알라딘 주문 내역
 
 1. [알라딘]에 로그인하고 개발자 콘솔을 엽니다.
