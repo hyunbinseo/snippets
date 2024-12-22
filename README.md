@@ -11,7 +11,7 @@
 
 ```js
 // 불러오기
-const aladin = await import('https://cdn.jsdelivr.net/gh/hyunbinseo/snippets/modules/aladin.co.kr/index.js');
+const aladin = await import('https://cdn.jsdelivr.net/gh/hyunbinseo/snippets/sites/aladin.co.kr/index.js');
 ```
 
 ```js
